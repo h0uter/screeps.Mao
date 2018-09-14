@@ -19,7 +19,7 @@ function isStoreStructure(structure) {
  * Creep tasks setup instructions
  *
  * Javascript:
- * 1. In core-main.js:    require("creep-tasks");
+ * 1. In main.js:    require("creep-tasks");
  * 2. As needed:     var Tasks = require("<path to plugin-creepTasks.js>");
  *
  * Typescript:
