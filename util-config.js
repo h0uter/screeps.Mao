@@ -1,7 +1,3 @@
-const config = {
-  balancedUnits: 4
+module.exports = {
+  engineerPop: 2
 };
-
-
-
-module.exports = config;

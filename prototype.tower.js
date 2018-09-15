@@ -1,4 +1,3 @@
-
 StructureTower.prototype.defend =
   function () {
     // find closes hostile creep

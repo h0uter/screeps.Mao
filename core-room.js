@@ -1,6 +1,3 @@
-
-
-
 //ROOM LOGIC
 Room.prototype.monitor = function () {
 
@@ -10,7 +7,7 @@ Room.prototype.monitor = function () {
     if (Game.spawns[spawnName].room === this) {
       Game.spawns[spawnName].cleanMemory();
       let engineers = _.filter(Game.creeps, (creep) => (creep.memory.role === 'engineer' && creep.memory.home === this.name)).length;
-      if (engineers < 3) {
+      if (engineers < Config.engineerPop) {
         Game.spawns[spawnName].buildTestCreep();
       }
       // Game.spawns[spawnName].spawnLogic();
@@ -22,17 +19,16 @@ Room.prototype.monitor = function () {
   for (let name in Game.creeps) {
 
     let creep = Game.creeps[name];
-    creep.memory.role = 'engineer';
-    creep.memory.home = this.name;
+    //creep.memory.role = 'engineer';
+    //creep.memory.home = this.name;
     if (creep.room === this) {
-      roles[creep.memory.role].run(creep);
+      Roles[creep.memory.role].run(creep);
     }
   }
 };
 
 
-
-roomPopulation = function(room) {
+roomPopulation = function (room) {
   let balancedUnits = _.filter(Game.creeps, (creep) => (creep.memory.chassis === 'balancedBody' && creep.memory.home === room.name)).length;
 
   return balancedUnits

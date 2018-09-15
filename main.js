@@ -1,17 +1,7 @@
-roles = {
-  // CONTROL
-  //claimer: require('role.claimer'),
-  //ECONOMY INCOME
-  //harvester: require('role.harvester'),       //blue
-  //miner: require('role.miner'),
-  //TRANSPORT
-  //transporter: require('role.transport'),             //red
-  //UPKEEP
-  engineer: require('role.engineer')           //yellow
-};
+require('util-global');
 // //PLUGINS
 // require('plugin-creepTasks');
-//
+require('plugin-loDash');
 // //LOAD IN PROTOTYPES
 require('prototype.creep');
 require('prototype.spawn');
@@ -22,31 +12,15 @@ require('core-room');
 require('util-functions');
 //
 // //UTILITIES
-// let logger = require('util-logger');
+let logger = require('util-logger');
 // let cache = require('util-cache');
 // let Config = require('util-config');
 
 module.exports.loop = function () {
-  let kop = {
-    test1: function () {
-      lg('1')
-    },
-    test2: function () {
-      lg('2')
-    }
-  };
-  let j = 'test1';
-
-  kop[j];
-  
-  
   //UTILITIES
-
-  //Game.spawns['Spawn1'].containerLR();
-  // logger.run();
-	// cache.run();
-
-  	//ROOMS
+  logger.run();
+  // cache.run();
+  //ROOMS
   for (let roomName in Game.rooms) {
     Game.rooms[roomName].monitor();
   }
@@ -55,6 +29,7 @@ module.exports.loop = function () {
   // for (let tower of towers) {
   //   tower.defend();
   // }
+
 
 };
 
