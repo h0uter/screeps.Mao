@@ -1,22 +1,31 @@
 module.exports = {
+  //Role.Job.Task
   /** @param {Creep} creep **/
   run: function (creep) {
     //creep.memory.job = 'upgrade';
+    creep.identify();
+    creep.fullState();
     if (creep.hasJob()) {
       creep.executeJob();
     } else {
+      //TODO job assignment logic
       creep.assignJob('upgrade');
     }
   },
   upgrade: function (creep) {
-    creep.fullState();
-    if (creep.memory.full) {
-      if (creep.upgradeController(Game.rooms[creep.memory.home].controller) === ERR_NOT_IN_RANGE) {
-        creep.moveTo(Game.rooms[creep.memory.home].controller, {visualizePathStyle: {stroke: '#ff5400'}});
+    if (creep.isIdle) {
+      if (creep.memory.full) {
+        creep.task = Tasks.upgrade(Game.rooms[creep.memory.home].controller);
+      } else {
+        creep.harvestSource();
       }
     }
-    else {
-      creep.harvestSource();
-    }
+    creep.run();
+  },
+  maintenance: function (creep) {
+
+  },
+  fortificate: function (creep) {
+
   }
 };

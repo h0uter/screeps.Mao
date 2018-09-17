@@ -1,23 +1,36 @@
 module.exports = {
   /** @param {Creep} creep **/
   run: function (creep) {
-    creep.memory.job = 'harvest';
-    for (let name in Game.creeps) {
+    creep.identify();
+    creep.fullState();
+
+    if (creep.hasJob()) {
       creep.executeJob();
-      // if (creep.hasJob) {
-      //   creep.executeJob();
-      // } else {
-      //   creep.assignJob();
-      // }
+    } else {
+      //TODO job assignment logic
+      creep.assignJob('harvest');
     }
   },
   harvest: function (creep) {
-    creep.fullState();
-    if (creep.memory.full) {
-
+    if (creep.isIdle) {
+      if (creep.memory.full) {
+        let targets = creep.room.find(FIND_MY_STRUCTURES, {
+          filter: (s) => {
+            return (
+              ((s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION || s.structureType === STRUCTURE_TOWER)
+                && s.energy < s.energyCapacity)
+            );
+          }
+        });
+        if (targets.length) {
+          targets = assignPriority(targets, 'extension', 'spawn', 'tower');
+          targets = prioritizeType(targets);
+          creep.task = Tasks.transfer(creep.findClosest(targets));
+        }
+      } else {
+        creep.harvestSource();
+      }
     }
-    else {
-      creep.harvestSource();
-    }
+    creep.run();
   }
 };

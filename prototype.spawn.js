@@ -8,13 +8,13 @@ StructureSpawn.prototype.cleanMemory = function () {
   }
 };
 
-StructureSpawn.prototype.buildTestCreep = function () {
+StructureSpawn.prototype.buildTestCreep = function (role) {
   this.cleanMemory();
   let newName = 'Test' + Game.time;
   let body = [WORK, MOVE, CARRY];
   return this.spawnCreep(body, newName, {
     memory: {
-      role: 'engineer',
+      role: role,
       full: false,
       target: false,
       home: this.room.name

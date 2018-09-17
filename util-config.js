@@ -1,3 +1,4 @@
 module.exports = {
-  engineerPop: 2
+  engineerPop: 4,
+  harvesterPop:2
 };
