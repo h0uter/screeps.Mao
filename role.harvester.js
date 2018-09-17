@@ -1,22 +1,19 @@
 module.exports = {
   /** @param {Creep} creep **/
   run: function (creep) {
-    creep.memory.job = 'harvest';
-    for (let name in Game.creeps) {
+    creep.fullState();
+    creep.identify();
+    if (creep.hasJob()) {
       creep.executeJob();
-      // if (creep.hasJob) {
-      //   creep.executeJob();
-      // } else {
-      //   creep.assignJob();
-      // }
+    } else {
+      //TODO job assignment logic
+      creep.assignJob('harvest');
     }
   },
   harvest: function (creep) {
-    creep.fullState();
     if (creep.memory.full) {
 
-    }
-    else {
+    } else {
       creep.harvestSource();
     }
   }

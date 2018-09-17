@@ -1,11 +1,11 @@
 require('util-global');
 // //PLUGINS
-// require('plugin-creepTasks');
+require('plugin-creepTasks');
 require('plugin-loDash');
 // //LOAD IN PROTOTYPES
 require('prototype.creep');
 require('prototype.spawn');
-// require('prototype.tower');
+require('prototype.tower');
 require('core-room');
 //
 //CUSTOM FUNCTIONS

@@ -1,5 +1,6 @@
 //GLOBAL VARIABLES
 Config = require('util-config');
+Tasks = require('plugin-creepTasks');
 
 Roles = {
   // CONTROL

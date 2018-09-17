@@ -1,7 +1,5 @@
 //ROOM LOGIC
 Room.prototype.monitor = function () {
-
-
   //SPAWNING
   for (let spawnName in Game.spawns) {
     if (Game.spawns[spawnName].room === this) {
@@ -12,15 +10,11 @@ Room.prototype.monitor = function () {
       }
       // Game.spawns[spawnName].spawnLogic();
     }
-
   }
 
   //CREEPS
   for (let name in Game.creeps) {
-
     let creep = Game.creeps[name];
-    //creep.memory.role = 'engineer';
-    //creep.memory.home = this.name;
     if (creep.room === this) {
       Roles[creep.memory.role].run(creep);
     }
