@@ -41,6 +41,19 @@ Creep.prototype.harvestSource = function () {
   // }
 };
 
+/** @function
+ @param {object} targets
+ */
+Creep.prototype.findClosest =
+  function (targets) {
+    let target = this.pos.findClosestByPath(targets);
+    //pos.findClosestByPath acts weird if it's only 1 long
+    if (!target) {
+      target = targets[0];
+    }
+    return target
+  };
+
 //TODO Object literal: https://toddmotto.com/deprecating-the-switch-statement-for-object-literals/
 Creep.prototype.identify =
   function () {
