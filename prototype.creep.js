@@ -28,7 +28,6 @@ Creep.prototype.hasJob = function () {
 };
 
 Creep.prototype.harvestSource = function () {
-  //if (this.isIdle)
   let sources = this.room.find(FIND_SOURCES);
   let unattendedSource = _.filter(sources, source => source.targetedBy.length == 0)[0];
   if (unattendedSource) {
@@ -41,19 +40,6 @@ Creep.prototype.harvestSource = function () {
   //   this.moveTo(source, {reusePath: 10, visualizePathStyle: {stroke: '#00ff23'}});
   // }
 };
-
-/** @function
- @param {object} targets
- */
-Creep.prototype.findClosest =
-  function (targets) {
-    let target = this.pos.findClosestByPath(targets);
-    //pos.findClosestByPath acts weird if it's only 1 long
-    if (!target) {
-      target = targets[0];
-    }
-    return target
-  };
 
 //TODO Object literal: https://toddmotto.com/deprecating-the-switch-statement-for-object-literals/
 Creep.prototype.identify =
