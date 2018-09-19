@@ -1,4 +1,4 @@
 module.exports = {
-  engineerPop: 4,
+  engineerPop: 5,
   harvesterPop:2
 };

@@ -1,4 +1,21 @@
-
+Creep.prototype.identifyJob =
+  function () {
+    if (Game.time % 5 === 0) {
+      let idSymbol;
+      let idSymbols = {
+        'construct':  function () {idSymbol = '🔨'},
+        'harvest':    function () {idSymbol = '🌾'},
+        'haul':       function () {idSymbol = '🚛'},
+        'mine':       function () {idSymbol = '⛏'},
+        'repair':     function () {idSymbol = '🔧'},
+        'upgrade':    function () {idSymbol = '⚡'},
+        'fortify':    function () {idSymbol = '🛡'},
+        'default':    function () {idSymbol = '**'}
+      };
+      (idSymbols[this.memory.job] || idSymbols['default'])();
+      this.say('job: ' + idSymbol)
+    }
+  };
 
 Creep.prototype.fullState =
   function () {
@@ -54,58 +71,21 @@ Creep.prototype.findClosest =
     return target
   };
 
-//TODO Object literal: https://toddmotto.com/deprecating-the-switch-statement-for-object-literals/
-Creep.prototype.identifySwitch =
-  function () {
-    if (Game.time % 5 === 0) {
-      switch (this.memory.job) {
-        case 'construct':
-          this.say('🔨');
-          break;
-        case 'harvest':
-          this.say('🌾');
-          break;
-        case 'haul':
-          this.say('🚛');
-          break;
-        case 'mine':
-          this.say('⛏');
-          break;
-        case 'remoteHarvest':
-          this.say('🚛 🌾');
-          break;
-        case 'repair':
-          this.say('🔧️');
-          break;
-        case 'upgrade':
-          this.say('⚡');
-          break;
-        case 'fortify':
-          this.say('🛡️');
-          break;
-        default:
-          this.say('**')
-          break;
-      }
+/** @function
+ @param {string} structureType
+ */
+Creep.prototype.structureTypeAvgHits =
+  function (structureType) {
+
+    let hitsTot = 0;
+    let structures = this.room.find(FIND_STRUCTURES, {
+      filter: (s) => (s.structureType === structureType)
+    });
+    // console.log('found ' + structures);
+    for(let structure in structures) {
+      // console.log('la ' + structures[structure].hits);
+      hitsTot += structures[structure].hits
     }
+    return hitsTot/structures.length
   };
 
-
-Creep.prototype.identifyJob =
-  function () {
-    if (Game.time % 5 === 0) {
-      let idSymbol;
-      let idSymbols = {
-        'construct':  function () {idSymbol = '🔨'},
-        'harvest':    function () {idSymbol = '🌾'},
-        'haul':       function () {idSymbol = '🚛'},
-        'mine':       function () {idSymbol = '⛏'},
-        'repair':     function () {idSymbol = '🔧'},
-        'upgrade':    function () {idSymbol = '⚡'},
-        'fortify':    function () {idSymbol = '🛡'},
-        'default':    function () {idSymbol = '**'}
-      };
-      (idSymbols[this.memory.job] || idSymbols['default'])();
-      this.say('job: ' + idSymbol)
-    }
-  };
