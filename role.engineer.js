@@ -3,7 +3,7 @@ module.exports = {
   /** @param {Creep} creep **/
   run: function (creep) {
     //creep.memory.job = 'upgrade';
-    creep.identify();
+    creep.identifyJob();
     creep.fullState();
     if (creep.hasJob()) {
       creep.executeJob();

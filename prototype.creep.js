@@ -55,7 +55,7 @@ Creep.prototype.findClosest =
   };
 
 //TODO Object literal: https://toddmotto.com/deprecating-the-switch-statement-for-object-literals/
-Creep.prototype.identify =
+Creep.prototype.identifySwitch =
   function () {
     if (Game.time % 5 === 0) {
       switch (this.memory.job) {
@@ -90,20 +90,22 @@ Creep.prototype.identify =
     }
   };
 
-function getDrink (type) {
-  var drinks = {
-    'coke': function () {
-      return 'Coke';
-    },
-    'pepsi': function () {
-      return 'Pepsi';
-    },
-    'lemonade': function () {
-      return 'Lemonade';
-    },
-    'default': function () {
-      return 'Default item';
+
+Creep.prototype.identifyJob =
+  function () {
+    if (Game.time % 5 === 0) {
+      let idSymbol;
+      let idSymbols = {
+        'construct':  function () {idSymbol = '🔨'},
+        'harvest':    function () {idSymbol = '🌾'},
+        'haul':       function () {idSymbol = '🚛'},
+        'mine':       function () {idSymbol = '⛏'},
+        'repair':     function () {idSymbol = '🔧'},
+        'upgrade':    function () {idSymbol = '⚡'},
+        'fortify':    function () {idSymbol = '🛡'},
+        'default':    function () {idSymbol = '**'}
+      };
+      (idSymbols[this.memory.job] || idSymbols['default'])();
+      this.say('job: ' + idSymbol)
     }
   };
-  return (drinks[type] || drinks['default'])();
-}

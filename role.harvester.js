@@ -1,7 +1,7 @@
 module.exports = {
   /** @param {Creep} creep **/
   run: function (creep) {
-    creep.identify();
+    creep.identifyJob();
     creep.fullState();
 
     if (creep.hasJob()) {
