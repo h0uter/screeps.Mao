@@ -25,7 +25,7 @@ module.exports = {
         if (targets.length) {
           targets = assignPriority(targets, 'extension', 'spawn', 'tower');
           targets = prioritizeType(targets);
-          creep.task = Tasks.transfer(creep.findClosest(targets));
+          creep.task = Tasks.transfer(creep.pos.findClosestByPath(targets));
         }
       } else {
         creep.harvestSource();
