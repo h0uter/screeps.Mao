@@ -10,13 +10,16 @@ module.exports = {
     } else {
       let upgradeJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'upgrade' && creep.memory.home === this.name)).length;
       let fortificateJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'fortificate' && creep.memory.home === this.name)).length;
+      let maintenanceJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'maintenance' && creep.memory.home === this.name)).length;
+
       //TODO job assignment logic
       if (upgradeJobs < 3) {
         creep.assignJob('upgrade');
       } else if (fortificateJobs < 2 ) {
         creep.assignJob('fortificate');
+      } else if (maintenanceJobs < 1 ) {
+        creep.assignJob('maintenance');
       }
-
     }
   },
   upgrade: function (creep) {
@@ -30,7 +33,31 @@ module.exports = {
     creep.run();
   },
   maintenance: function (creep) {
-
+    if (creep.isIdle) {
+      if (creep.memory.full) {
+        let roadHP = 1000;
+        let containerHP = 1000;
+        let targets = creep.room.find(FIND_STRUCTURES, {
+          filter: (s) => {
+            return (
+              ((s.structureType === 'container' || s.structureType === 'storage') && s.hitsMax - s.hits > containerHP)
+              || (s.structureType === 'road' && s.hitsMax - s.hits > roadHP)
+              // || (s.structureType === 'rampart' && creep.structureTypeAvgHits(STRUCTURE_RAMPART) - s.hits > 2000)
+              // || (s.structureType === 'constructedWall' && s.hits < creep.structureTypeAvgHits(STRUCTURE_WALL))
+            )
+          }
+        });
+        if (targets.length) {
+          targets = assignPriority(targets, 'container', 'storage', 'road', 'rampart', 'constructedWall');
+          targets = prioritizeType(targets);
+          let target = findLowestHits(targets);
+          creep.task = Tasks.repair(target);
+        }
+      } else {
+        creep.harvestSource();
+      }
+    }
+    creep.run();
   },
   fortificate: function (creep) {
     if (creep.isIdle) {
