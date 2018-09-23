@@ -3,14 +3,14 @@ Creep.prototype.identifyJob =
     if (Game.time % 5 === 0) {
       let idSymbol;
       let idSymbols = {
-        'construct':  function () {idSymbol = '🔨'},
-        'harvest':    function () {idSymbol = '🌾'},
-        'haul':       function () {idSymbol = '🚛'},
-        'mine':       function () {idSymbol = '⛏'},
-        'repair':     function () {idSymbol = '🔧'},
-        'upgrade':    function () {idSymbol = '⚡'},
-        'fortify':    function () {idSymbol = '🛡'},
-        'default':    function () {idSymbol = '**'}
+        construct:  function () {idSymbol = '🔨'},
+        harvest:    function () {idSymbol = '🌾'},
+        haul:       function () {idSymbol = '🚛'},
+        mine:       function () {idSymbol = '⛏'},
+        maintenance:function () {idSymbol = '🔧'},
+        upgrade:    function () {idSymbol = '⚡'},
+        fortificate:function () {idSymbol = '🛡'},
+        default:    function () {idSymbol = '**'}
       };
       (idSymbols[this.memory.job] || idSymbols['default'])();
       this.say('job: ' + idSymbol)

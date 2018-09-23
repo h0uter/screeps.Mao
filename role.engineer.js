@@ -8,11 +8,11 @@ module.exports = {
     if (creep.hasJob()) {
       creep.executeJob();
     } else {
-      let upgradeJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'upgrade' && creep.memory.home === this.name)).length;
-      let fortificateJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'fortificate' && creep.memory.home === this.name)).length;
-      let maintenanceJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'maintenance' && creep.memory.home === this.name)).length;
-
       //TODO job assignment logic
+      let upgradeJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'upgrade' && creep.memory.home === creep.room.name)).length;
+      let fortificateJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'fortificate' && creep.memory.home === creep.room.name)).length;
+      let maintenanceJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'maintenance' && creep.memory.home === creep.room.name)).length;
+
       if (upgradeJobs < 3) {
         creep.assignJob('upgrade');
       } else if (fortificateJobs < 2 ) {
