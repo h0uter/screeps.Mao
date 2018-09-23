@@ -19,11 +19,13 @@ module.exports = {
             return (
               ((s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION || s.structureType === STRUCTURE_TOWER)
                 && s.energy < s.energyCapacity)
+              || (s.structureType === STRUCTURE_STORAGE && s.storeCapacity > s.store.energy)
+
             );
           }
         });
         if (targets.length) {
-          targets = assignPriority(targets, 'extension', 'spawn', 'tower');
+          targets = assignPriority(targets, 'tower', 'extension', 'spawn', 'storage');
           targets = prioritizeType(targets);
           creep.task = Tasks.transfer(creep.pos.findClosestByPath(targets));
         }

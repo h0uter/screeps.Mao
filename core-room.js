@@ -3,15 +3,7 @@ Room.prototype.monitor = function () {
   //SPAWNING
   for (let spawnName in Game.spawns) {
     if (Game.spawns[spawnName].room === this) {
-      Game.spawns[spawnName].cleanMemory();
-      let harvesters = _.filter(Game.creeps, (creep) => (creep.memory.role === 'harvester' && creep.memory.home === this.name)).length;
-      let engineers = _.filter(Game.creeps, (creep) => (creep.memory.role === 'engineer' && creep.memory.home === this.name)).length;
-      if (harvesters < Config.harvesterPop) {
-        Game.spawns[spawnName].buildTestCreep('harvester');
-      } else if (engineers < Config.engineerPop) {
-        Game.spawns[spawnName].buildTestCreep('engineer');
-      }
-      // Game.spawns[spawnName].spawnLogic();
+      Game.spawns[spawnName].spawnLogic();
     }
   }
 
@@ -33,7 +25,13 @@ Room.prototype.monitor = function () {
 
 
 roomPopulation = function (room) {
-  let balancedUnits = _.filter(Game.creeps, (creep) => (creep.memory.chassis === 'balancedBody' && creep.memory.home === room.name)).length;
+  let RCL = room.controller.level;
+  let pop = {};
+  let spawnList = Config.spawnList[RCL.toString()];
 
-  return balancedUnits
+  for (let i = 0; i < spawnList.length; i++) {
+    pop[spawnList[i]] = _.filter(Game.creeps, (creep) => (creep.memory.role === spawnList[i] && creep.memory.home === room.name)).length;
+  }
+  //lgO(pop);
+  return pop
 };

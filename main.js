@@ -13,10 +13,8 @@ require('util-functions');
 //
 // //UTILITIES
 let logger = require('util-logger');
-// let cache = require('util-cache');
 // let Config = require('util-config');
 
-//PROFILER
 const profiler = require('util-profiler');
 profiler.enable();
 
@@ -25,8 +23,10 @@ module.exports.loop = function () {
     //UTILITIES
     logger.run();
     // cache.run();
+    roomPopulation(Game.rooms.E46S19);
     //ROOMS
     for (let roomName in Game.rooms) {
+
       Game.rooms[roomName].monitor();
     }
   })
