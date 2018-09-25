@@ -30,7 +30,6 @@ module.exports = {
         creep.harvestSource();
       }
     }
-    creep.run();
   },
   maintenance: function (creep) {
     if (creep.isIdle) {
@@ -57,7 +56,6 @@ module.exports = {
         creep.harvestSource();
       }
     }
-    creep.run();
   },
   fortificate: function (creep) {
     if (creep.isIdle) {
@@ -79,6 +77,5 @@ module.exports = {
         creep.harvestSource();
       }
     }
-    creep.run();
   }
 };

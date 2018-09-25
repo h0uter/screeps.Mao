@@ -34,6 +34,7 @@ Creep.prototype.fullState =
 Creep.prototype.executeJob = function () {
   //lg('heyyeye'+Roles[this.memory.role][this.memory.job](this));
   Roles[this.memory.role][this.memory.job](this);
+  this.run();
 };
 
 Creep.prototype.assignJob = function (job) {
@@ -46,21 +47,12 @@ Creep.prototype.hasJob = function () {
 
 Creep.prototype.harvestSource = function () {
   let sources = this.room.find(FIND_SOURCES);
-
-
-  //let unattendedSource = _.filter(sources, source => source.targetedBy.length == 0)[0];
-  lg('before: ' + sources);
+  // lg('before: ' + sources);
   sources.sort(function (a, b) {
     return a.targetedBy.length - b.targetedBy.length
   });
-  lg('after: ' +sources);
+  // lg('after: ' +sources);
   this.task = Tasks.harvest(sources[0]);
-  // if (unattendedSource) {
-  //   lg(unattendedSource);
-  //   this.task = Tasks.harvest(unattendedSource);
-  // } else {
-  //   this.task = Tasks.harvest(sources[0]);
-  // }
 };
 
 /** @function

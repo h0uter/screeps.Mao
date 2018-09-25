@@ -9,15 +9,15 @@ module.exports = {
       //ENERGY DATA
       let room = Game.rooms[roomName];
       console.log('>>Energy in room ' + roomName + ': ' + room.energyAvailable + "/" + room.energyCapacityAvailable);
-      //console.log('>>Harvesters: ' + harvesters.length,' | Upgraders: ' + upgraders.length, ' | Builders: ' + builders.length,' | Repairers: ' + repairers.length,' | Miners: ' + miners.length,' | Haulers: ' + haulers.length,' | Wallers: ' + wallers.length, ' | remoteHarvesters: ' + remoteHarvesters.length,' | claimers: ' + claimers.length);
 
       let pop = roomPopulation(room);
-
       let log = '';
+      //TODO also log active jobs with #
       for (let rol in pop) {
+        //for (let job in
         log +=  rol + 's: ' + pop[rol] + ' | ';
       }
-      console.log(log)
+      console.log('>>Pops: ' + log);
     }
   }
 };

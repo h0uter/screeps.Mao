@@ -33,6 +33,6 @@ module.exports = {
         creep.harvestSource();
       }
     }
-    creep.run();
+
   }
 };
