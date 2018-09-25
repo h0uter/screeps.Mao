@@ -46,15 +46,20 @@ Creep.prototype.hasJob = function () {
 
 Creep.prototype.harvestSource = function () {
   let sources = this.room.find(FIND_SOURCES);
-  let unattendedSource = _.filter(sources, source => source.targetedBy.length == 0)[0];
-  if (unattendedSource) {
-    this.task = Tasks.harvest(unattendedSource);
-  } else {
-    this.task = Tasks.harvest(sources[0]);
-  }
-  // let source = this.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
-  // if (this.harvest(source) === ERR_NOT_IN_RANGE) {
-  //   this.moveTo(source, {reusePath: 10, visualizePathStyle: {stroke: '#00ff23'}});
+
+
+  //let unattendedSource = _.filter(sources, source => source.targetedBy.length == 0)[0];
+  lg('before: ' + sources);
+  sources.sort(function (a, b) {
+    return a.targetedBy.length - b.targetedBy.length
+  });
+  lg('after: ' +sources);
+  this.task = Tasks.harvest(sources[0]);
+  // if (unattendedSource) {
+  //   lg(unattendedSource);
+  //   this.task = Tasks.harvest(unattendedSource);
+  // } else {
+  //   this.task = Tasks.harvest(sources[0]);
   // }
 };
 
