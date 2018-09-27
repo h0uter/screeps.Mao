@@ -7,7 +7,7 @@ Roles = {
   //claimer: require('role.claimer'),
   //ECONOMY INCOME
   harvester: require('role.harvester'),       //blue
-  //miner: require('role.miner'),
+  miner: require('role.miner'),
   //TRANSPORT
   //transporter: require('role.transport'),             //red
   //UPKEEP

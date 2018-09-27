@@ -22,6 +22,9 @@ module.exports = {
       }
     }
   },
+  construct: function(creep) {
+
+  },
   upgrade: function (creep) {
     if (creep.isIdle) {
       if (creep.memory.full) {

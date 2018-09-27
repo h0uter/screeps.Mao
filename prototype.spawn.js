@@ -54,9 +54,15 @@ StructureSpawn.prototype.buildCreep = function (role, spawnEnergy = this.room.en
     engineer: 200,
     miner: 150,
   };
+
   let bodyBuilder = {
     balanced: function () {
       return [1,1,1].map(function (x) { return x * _.floor(spawnEnergy/baseCost.harvester)});
+    },
+    miner: function() {
+      lichaam = [1,0,0].map(function (x) { return x * Math.min(_.floor((spawnEnergy - 50)/100), 5)});
+      lichaam[2] = 1;
+      return lichaam
     }
   };
 
@@ -64,15 +70,18 @@ StructureSpawn.prototype.buildCreep = function (role, spawnEnergy = this.room.en
 
   let workParts = {
     harvester: _.floor(spawnEnergy/baseCost.harvester),
-    engineer: _.floor(0.75*(spawnEnergy/baseCost.engineer))
+    engineer: _.floor(0.75*(spawnEnergy/baseCost.engineer)),
+    miner: Math.min((spawnEnergy - 50)/100, 5)
   };
   let carryParts = {
     harvester: workParts.harvester,
     engineer: workParts.engineer,
+    miner: 0,
   };
   let moveParts = {
     harvester: workParts.harvester,
     engineer: workParts.engineer,
+    miner: 1,
   };
 
   for (let i = 0; i < workParts[role]; i++) {body.push(WORK)}
