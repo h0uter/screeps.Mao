@@ -18,7 +18,7 @@ StructureSpawn.prototype.spawnLogic = function () {
     let RCL = this.room.getRCL();
 
     let spawnList = Config.spawnList[RCL.toString()]; //arr
-    let pop = this.room.getPopulation();
+    let pop = this.room.howManyOfEach('role');
     //lgO(pop);
 
     for (let i = 0; i < spawnList.length; i++) {

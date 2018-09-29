@@ -1,7 +1,8 @@
 require('util-global');
 // //PLUGINS
-require('plugin-creepTasks');
-require('plugin-loDash');
+//require('plugin-creepTasks');
+
+
 // //LOAD IN PROTOTYPES
 require('prototype.creep');
 require('prototype.spawn');
@@ -14,21 +15,20 @@ require('util-functions');
 // //UTILITIES
 let logger = require('util-logger');
 
-const profiler = require('util-profiler');
-profiler.enable();
+//const profiler = require('util-profiler');
+//profiler.enable();
 
 module.exports.loop = function () {
-  profiler.wrap(function() {
-
+  // profiler.wrap(function() {
+    logger.run();
     //ROOMS
     for (let roomName in Game.rooms) {
-
       Game.rooms[roomName].director();
     }
 
     //UTILITIES
-    logger.run();
+
     // cache.run();
-  })
+  // })
 };
 
