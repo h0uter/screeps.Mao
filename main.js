@@ -26,7 +26,7 @@ module.exports.loop = function () {
     }
 
     //UTILITIES
-    logger.run();
+
     // cache.run();
   // })
 };
