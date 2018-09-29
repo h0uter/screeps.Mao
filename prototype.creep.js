@@ -1,3 +1,4 @@
+
 Creep.prototype.identifyJob =
   function () {
     if (Game.time % 5 === 0) {
@@ -86,3 +87,15 @@ Creep.prototype.structureTypeAvgHits =
     return hitsTot/structures.length
   };
 
+/** @function
+ @param {object} targets
+ */
+Creep.prototype.findMostProgressed = function (targets) {
+  targets.sort(function (a, b) {
+    return a.progress - b.progress
+  });
+  if (targets.length > 3) {
+    targets = targets.splice(2)
+  }
+  return this.pos.findClosestByPath(targets)
+};

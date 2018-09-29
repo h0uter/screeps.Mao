@@ -5,25 +5,46 @@ module.exports = {
     //creep.memory.job = 'upgrade';
     creep.identifyJob();
     creep.fullState();
+
     if (creep.hasJob()) {
       creep.executeJob();
     } else {
+
       //TODO job assignment logic
       let upgradeJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'upgrade' && creep.memory.home === creep.room.name)).length;
       let fortificateJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'fortificate' && creep.memory.home === creep.room.name)).length;
       let maintenanceJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'maintenance' && creep.memory.home === creep.room.name)).length;
+      let constructJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'construct' && creep.memory.home === creep.room.name)).length;
+
 
       if (upgradeJobs < 3) {
         creep.assignJob('upgrade');
-      } else if (fortificateJobs < 2 ) {
-        creep.assignJob('fortificate');
+      } else if (constructJobs < 1) {
+        creep.assignJob('construct')
       } else if (maintenanceJobs < 1 ) {
         creep.assignJob('maintenance');
+      } else if (fortificateJobs < 1 ) {
+        creep.assignJob('fortificate');
       }
     }
   },
   construct: function(creep) {
-
+    if (creep.isIdle) {
+      if (creep.memory.full) {
+        let targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+        if (targets.length) {
+          targets = assignPriority(targets, 'tower', 'extension', 'container', 'road', 'constructedWall');
+          targets = prioritizeType(targets);
+          let target = creep.findMostProgressed(targets);
+          //console.log('target: ' + target + ' | targets: ' + targets);
+          //creep.memory.buildTarget = target.id;
+          //creep.memory.targetName = target.structureType;
+          creep.task = Tasks.build(target)
+        }
+      } else {
+        creep.harvestSource();
+      }
+    }
   },
   upgrade: function (creep) {
     if (creep.isIdle) {

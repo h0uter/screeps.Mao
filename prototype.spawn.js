@@ -15,10 +15,10 @@ StructureSpawn.prototype.spawnLogic = function () {
     this.buildCreep('harvester', 200)
   } else {
     //TODO population import
-    let RCL = this.room.controller.level;
+    let RCL = this.room.getRCL();
 
     let spawnList = Config.spawnList[RCL.toString()]; //arr
-    let pop = roomPopulation(this.room);
+    let pop = this.room.getPopulation();
     //lgO(pop);
 
     for (let i = 0; i < spawnList.length; i++) {
@@ -65,8 +65,7 @@ StructureSpawn.prototype.buildCreep = function (role, spawnEnergy = this.room.en
       return lichaam
     }
   };
-
-  lg(bodyBuilder.balanced());
+  // lg(bodyBuilder.balanced());
 
   let workParts = {
     harvester: _.floor(spawnEnergy/baseCost.harvester),

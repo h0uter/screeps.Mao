@@ -1,5 +1,8 @@
 //ROOM LOGIC
-Room.prototype.monitor = function () {
+
+Room.prototype.director = function() {
+  roomInfo = this.monitor();
+
   //SPAWNING
   for (let spawnName in Game.spawns) {
     if (Game.spawns[spawnName].room === this) {
@@ -10,6 +13,7 @@ Room.prototype.monitor = function () {
   //CREEPS
   for (let name in Game.creeps) {
     let creep = Game.creeps[name];
+
     if (creep.room === this) {
       Roles[creep.memory.role].run(creep);
     }
@@ -21,16 +25,32 @@ Room.prototype.monitor = function () {
     tower.defend();
   }
 
+
 };
 
+Room.prototype.monitor = function () {
+  //INFO
+  Memory.rooms[this.name] = {
+    constructionSites: this.find(FIND_CONSTRUCTION_SITES),
+    population: this.getPopulation(),
+  }
+};
 
-roomPopulation = function (room) {
-  let RCL = room.controller.level;
+Room.prototype.jobs = function() {
+
+}
+
+Room.prototype.getRCL = function() {
+  return this.controller.level
+}
+
+Room.prototype.getPopulation = function () {
+  let RCL = this.getRCL();
   let pop = {};
   let spawnList = Config.spawnList[RCL.toString()];
 
   for (let i = 0; i < spawnList.length; i++) {
-    pop[spawnList[i]] = _.filter(Game.creeps, (creep) => (creep.memory.role === spawnList[i] && creep.memory.home === room.name)).length;
+    pop[spawnList[i]] = _.filter(Game.creeps, (creep) => (creep.memory.role === spawnList[i] && creep.memory.home === this.name)).length;
   }
   //lgO(pop);
   return pop

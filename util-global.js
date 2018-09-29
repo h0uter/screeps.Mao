@@ -13,3 +13,7 @@ Roles = {
   //UPKEEP
   engineer: require('role.engineer')           //yellow
 };
+
+//MEMORY
+Memory.rooms = {};
+//Memory.roles = {};
