@@ -1,12 +1,23 @@
 //ROOM LOGIC
 Room.prototype.director = function() {
-  roomInfo = this.monitor();
+  this.monitor();
+
+  //TOWERS
+  let towers = _.filter(Game.structures, s => s.structureType === STRUCTURE_TOWER);
+  for (let tower of towers) {
+    tower.defend();
+  }
+
+  //DIRECTING
+  // if (this.memory.constructionSites.length) {
+  //   //construction job available
+  // }
+
 
   //CREEPS
   for (let name in Game.creeps) {
     let creep = Game.creeps[name];
     if (creep.room === this) {
-
       Roles[creep.memory.role].run(creep);
     }
   }
@@ -18,29 +29,34 @@ Room.prototype.director = function() {
     }
   }
 
-  //TOWERS
-  let towers = _.filter(Game.structures, s => s.structureType === STRUCTURE_TOWER);
-  for (let tower of towers) {
-    tower.defend();
-  }
+
 };
 
 Room.prototype.monitor = function () {
   //INFO
   //TODO job targets: repair, construct
 
-  Memory.rooms[this.name] = {
-    creeps: this.creepList(),
+  // Memory.rooms[this.name] = {
+  this.memory = {
+    creeps: this.roomCreeps(),
     RCL: this.getRCL(),
     constructionSites: this.find(FIND_CONSTRUCTION_SITES),
     roleList: this.howManyOfEach('role'),
     jobList: this.howManyOfEach('job'),
+
   }
 };
 
-Room.prototype.creepList = function() {
-  let creeps = _.filter(Game.creeps, { memory: { home: this.name } } );
-  lg(creeps)
+Room.prototype.roomCreeps = function() {
+  //_.filter(Game.creeps, (creep) => (creep.memory.home === this.room.name))
+  let list = {};
+  for (let name in Game.creeps) {
+    let creep = Game.creeps[name];
+    if (creep.memory.home === this.name) {
+      list[creep.name] = creep.id
+    }
+  }
+  return list
 }
 
 

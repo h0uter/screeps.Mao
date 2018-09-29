@@ -19,14 +19,14 @@ let logger = require('util-logger');
 
 module.exports.loop = function () {
   // profiler.wrap(function() {
-    logger.cpu();
+    //logger.cpu();
     //ROOMS
     for (let roomName in Game.rooms) {
       Game.rooms[roomName].director();
     }
 
     //UTILITIES
-
+    logger.run();
     // cache.run();
   // })
 };

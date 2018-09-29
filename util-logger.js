@@ -18,6 +18,6 @@ module.exports = {
     // console.log('>>CPU: ' + Game.cpu.tickLimit + '/' + Game.cpu.bucket);
   },
   cpu: function() {
-    console.log('>>CPU: ' + Game.cpu.tickLimit + '/' + Game.cpu.bucket);
+    console.log('>>CPU: ' + Game.cpu.tickLimit + '/' + Game.cpu.bucket + ' used: ' + Game.cpu.getUsed());
   }
 };

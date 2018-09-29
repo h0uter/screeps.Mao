@@ -6,27 +6,32 @@ module.exports = {
     creep.identifyJob();
     creep.fullState();
 
-    if (creep.hasJob()) {
-      creep.executeJob();
-    } else {
+    //TODO job assignment logic
+    // let upgradeJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'upgrade' && creep.memory.home === creep.room.name)).length;
+    // let fortificateJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'fortificate' && creep.memory.home === creep.room.name)).length;
+    // let maintenanceJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'maintenance' && creep.memory.home === creep.room.name)).length;
+    // let constructJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'construct' && creep.memory.home === creep.room.name)).length;
 
-      //TODO job assignment logic
-      let upgradeJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'upgrade' && creep.memory.home === creep.room.name)).length;
-      let fortificateJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'fortificate' && creep.memory.home === creep.room.name)).length;
-      let maintenanceJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'maintenance' && creep.memory.home === creep.room.name)).length;
-      let constructJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'construct' && creep.memory.home === creep.room.name)).length;
-
-
-      if (upgradeJobs < 3) {
-        creep.assignJob('upgrade');
-      } else if (constructJobs < 1) {
-        creep.assignJob('construct')
-      } else if (maintenanceJobs < 1 ) {
-        creep.assignJob('maintenance');
-      } else if (fortificateJobs < 1 ) {
-        creep.assignJob('fortificate');
-      }
+    if (creep.room.memory.jobList.upgrade < 3) {
+      creep.assignJob('upgrade');
+    } else if (creep.room.memory.jobList.maintenance < 1 ) {
+      creep.assignJob('maintenance');
+    } else if (creep.room.memory.jobList.fortificate < 1 ) {
+      creep.assignJob('fortificate');
     }
+
+    let constructJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'construct' && creep.memory.home === creep.room.name)).length;
+    if (creep.room.memory.constructionSites && creep.room.memory.constructionSites.length && constructJobs < 2) {
+      //construction job available
+      lg('construction TIME!!!!');
+      creep.memory.job = 'construct';
+    } else if (creep.memory.job === 'construct') {
+      creep.memory.job = null;
+    }
+    if (creep.hasJob()) {
+      creep.executeJob()
+    }
+
   },
   construct: function(creep) {
     if (creep.isIdle) {

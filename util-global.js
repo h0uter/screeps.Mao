@@ -17,4 +17,3 @@ Roles = {
 
 //MEMORY
 Memory.rooms = {};
-//Memory.roles = {};
