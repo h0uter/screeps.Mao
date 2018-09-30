@@ -4,13 +4,13 @@ Creep.prototype.identifyJob =
     if (Game.time % 5 === 0) {
       let idSymbol;
       let idSymbols = {
-        construct:  function () {idSymbol = '🔨'},
-        harvest:    function () {idSymbol = '🌾'},
+        jobConstruct:  function () {idSymbol = '🔨'},
+        jobHarvest:    function () {idSymbol = '🌾'},
         haul:       function () {idSymbol = '🚛'},
         mine:       function () {idSymbol = '⛏'},
-        maintenance:function () {idSymbol = '🔧'},
-        upgrade:    function () {idSymbol = '⚡'},
-        fortificate:function () {idSymbol = '🛡'},
+        jobMaintenance:function () {idSymbol = '🔧'},
+        jobUpgrade:    function () {idSymbol = '⚡'},
+        jobFortify:function () {idSymbol = '🛡'},
         default:    function () {idSymbol = '**'}
       };
       (idSymbols[this.memory.job] || idSymbols['default'])();
@@ -27,6 +27,7 @@ Creep.prototype.fullState =
     }
     if (!this.memory.full && this.carry.energy === this.carryCapacity) {
       this.memory.full = true;
+      this.memory.job = false;
       // this.clearTargets();
       this.say('💯');
     }
@@ -35,7 +36,6 @@ Creep.prototype.fullState =
 Creep.prototype.executeJob = function () {
   //lg('heyyeye'+Roles[this.memory.role][this.memory.job](this));
   Roles[this.memory.role][this.memory.job](this);
-  this.run();
 };
 
 Creep.prototype.assignJob = function (job) {

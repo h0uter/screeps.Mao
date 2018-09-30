@@ -17,6 +17,7 @@ Room.prototype.director = function() {
   //CREEPS
   for (let name in Game.creeps) {
     let creep = Game.creeps[name];
+    // creep.memory.job = false;
     if (creep.room === this) {
       Roles[creep.memory.role].run(creep);
     }
@@ -34,7 +35,7 @@ Room.prototype.director = function() {
 
 Room.prototype.monitor = function () {
   //INFO
-  //TODO job targets: repair, construct
+  //TODO job targets: repair, jobConstruct
 
   // Memory.rooms[this.name] = {
   this.memory = {

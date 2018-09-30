@@ -1,39 +1,63 @@
-module.exports = {
+var Tasks = require('plugin-creepTasks');
+
+let roleEngineer = {
   //Role.Job.Task
   /** @param {Creep} creep **/
   run: function (creep) {
     //creep.memory.job = 'upgrade';
-    creep.identifyJob();
+
     creep.fullState();
 
-    //TODO job assignment logic
-    // let upgradeJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'upgrade' && creep.memory.home === creep.room.name)).length;
-    // let fortificateJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'fortificate' && creep.memory.home === creep.room.name)).length;
-    // let maintenanceJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'maintenance' && creep.memory.home === creep.room.name)).length;
-    // let constructJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'construct' && creep.memory.home === creep.room.name)).length;
+    if (creep.isIdle) {
+      if (creep.memory.full) {
 
-    if (creep.room.memory.jobList.upgrade < 3) {
-      creep.assignJob('upgrade');
-    } else if (creep.room.memory.jobList.maintenance < 1 ) {
-      creep.assignJob('maintenance');
-    } else if (creep.room.memory.jobList.fortificate < 1 ) {
-      creep.assignJob('fortificate');
-    }
+        //JOB assignment from room info
+        let jobList = creep.room.memory.jobList;
+        if (!jobList.jobUpgrade || jobList.jobUpgrade < 3) {
+            creep.memory.job = 'jobUpgrade';
+          } else if (!jobList.jobMaintenance || jobList.jobMaintenance < 1 ) {
+            creep.assignJob('jobMaintenance');
+          } else if (!jobList.jobFortify || jobList.jobFortify < 1 ) {
+            creep.assignJob('jobFortify');
+          }
 
-    let constructJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'construct' && creep.memory.home === creep.room.name)).length;
-    if (creep.room.memory.constructionSites && creep.room.memory.constructionSites.length && constructJobs < 2) {
-      //construction job available
-      lg('construction TIME!!!!');
-      creep.memory.job = 'construct';
-    } else if (creep.memory.job === 'construct') {
-      creep.memory.job = null;
+        if (creep.hasJob()) {
+          creep.executeJob()
+        }
+      } else {
+        creep.harvestSource()
+      }
     }
-    if (creep.hasJob()) {
-      creep.executeJob()
-    }
+    creep.identifyJob();
+    creep.run();
+    // //TODO job assignment logic
+    // // let upgradeJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'upgrade' && creep.memory.home === creep.room.name)).length;
+    // // let fortificateJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'jobFortify' && creep.memory.home === creep.room.name)).length;
+    // // let maintenanceJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'jobMaintenance' && creep.memory.home === creep.room.name)).length;
+    // // let constructJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'jobConstruct' && creep.memory.home === creep.room.name)).length;
+    // lg(creep.room.memory.jobList.jobMaintenance < 1);
+    // if (creep.room.memory.jobList.upgrade < 3) {
+    //   creep.memory.job = 'upgrade';
+    // } else if (!creep.room.memory.jobList.jobMaintenance || creep.room.memory.jobList.jobMaintenance < 1 ) {
+    //   creep.assignJob('jobMaintenance');
+    // } else if (!creep.room.memory.jobList.jobFortify || creep.room.memory.jobList.jobFortify < 1 ) {
+    //   creep.assignJob('jobFortify');
+    // }
+    //
+    // let constructJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'jobConstruct' && creep.memory.home === creep.room.name)).length;
+    // if (creep.room.memory.constructionSites && creep.room.memory.constructionSites.length && constructJobs < 2) {
+    //   //construction job available
+    //   lg('construction TIME!!!!');
+    //   creep.memory.job = 'jobConstruct';
+    // } else if (creep.memory.job === 'jobConstruct') {
+    //   creep.memory.job = null;
+    // }
+    // if (creep.hasJob()) {
+    //   creep.executeJob()
+    // }
 
   },
-  construct: function(creep) {
+  jobConstruct: function(creep) {
     if (creep.isIdle) {
       if (creep.memory.full) {
         let targets = creep.room.find(FIND_CONSTRUCTION_SITES);
@@ -51,7 +75,7 @@ module.exports = {
       }
     }
   },
-  upgrade: function (creep) {
+  jobUpgrade: function (creep) {
     if (creep.isIdle) {
       if (creep.memory.full) {
         creep.task = Tasks.upgrade(Game.rooms[creep.memory.home].controller);
@@ -60,7 +84,7 @@ module.exports = {
       }
     }
   },
-  maintenance: function (creep) {
+  jobMaintenance: function (creep) {
     if (creep.isIdle) {
       if (creep.memory.full) {
         let roadHP = 1000;
@@ -86,7 +110,7 @@ module.exports = {
       }
     }
   },
-  fortificate: function (creep) {
+  jobFortify: function (creep) {
     if (creep.isIdle) {
       if (creep.memory.full) {
         let targets = creep.room.find(FIND_STRUCTURES, {
@@ -108,3 +132,5 @@ module.exports = {
     }
   }
 };
+
+module.exports = roleEngineer;

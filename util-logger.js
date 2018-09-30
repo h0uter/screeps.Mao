@@ -7,13 +7,20 @@ module.exports = {
       let room = Game.rooms[roomName];
       console.log('>>Energy in room ' + roomName + ': ' + room.energyAvailable + "/" + room.energyCapacityAvailable);
 
-      let popLog = '';
-      let pop = Memory.rooms[roomName].roleList;
-      //TODO also popLog active jobs with #
-      for (let rol in pop) {
-        popLog +=  rol + 's: ' + pop[rol] + ' | ';
+      let roleListLog = '';
+      let roleList = Memory.rooms[roomName].roleList;
+      //TODO also roleListLog active jobs with #
+      for (let rol in roleList) {
+        roleListLog += rol + 's: ' + roleList[rol] + ' | ';
       }
-      console.log('>>Pops: ' + popLog);
+      console.log('>>Pops: ' + roleListLog);
+
+      let jobListLog = '';
+      let jobList = Memory.rooms[roomName].jobList;
+      _.forIn(jobList, function (value, key) {
+        jobListLog += key + ': ' + value + ' | ';
+      });
+      console.log('>>Jobs: ' + jobListLog);
     }
     // console.log('>>CPU: ' + Game.cpu.tickLimit + '/' + Game.cpu.bucket);
   },
