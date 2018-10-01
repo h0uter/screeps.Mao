@@ -21,7 +21,7 @@ let roleEngineer = {
             creep.assignJob('jobFortify');
           }
 
-        if (creep.hasJob()) {
+        if (!!creep.memory.job) {
           creep.executeJob()
         }
       } else {
@@ -31,35 +31,11 @@ let roleEngineer = {
     creep.identifyJob();
     creep.run();
     // //TODO job assignment logic
-    // // let upgradeJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'upgrade' && creep.memory.home === creep.room.name)).length;
-    // // let fortificateJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'jobFortify' && creep.memory.home === creep.room.name)).length;
-    // // let maintenanceJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'jobMaintenance' && creep.memory.home === creep.room.name)).length;
-    // // let constructJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'jobConstruct' && creep.memory.home === creep.room.name)).length;
-    // lg(creep.room.memory.jobList.jobMaintenance < 1);
-    // if (creep.room.memory.jobList.upgrade < 3) {
-    //   creep.memory.job = 'upgrade';
-    // } else if (!creep.room.memory.jobList.jobMaintenance || creep.room.memory.jobList.jobMaintenance < 1 ) {
-    //   creep.assignJob('jobMaintenance');
-    // } else if (!creep.room.memory.jobList.jobFortify || creep.room.memory.jobList.jobFortify < 1 ) {
-    //   creep.assignJob('jobFortify');
-    // }
-    //
-    // let constructJobs = _.filter(Game.creeps, (creep) => (creep.memory.job === 'jobConstruct' && creep.memory.home === creep.room.name)).length;
-    // if (creep.room.memory.constructionSites && creep.room.memory.constructionSites.length && constructJobs < 2) {
-    //   //construction job available
-    //   lg('construction TIME!!!!');
-    //   creep.memory.job = 'jobConstruct';
-    // } else if (creep.memory.job === 'jobConstruct') {
-    //   creep.memory.job = null;
-    // }
-    // if (creep.hasJob()) {
-    //   creep.executeJob()
-    // }
 
   },
   jobConstruct: function(creep) {
-    if (creep.isIdle) {
-      if (creep.memory.full) {
+    // if (creep.isIdle) {
+    //   if (creep.memory.full) {
         let targets = creep.room.find(FIND_CONSTRUCTION_SITES);
         if (targets.length) {
           targets = assignPriority(targets, 'tower', 'extension', 'container', 'road', 'constructedWall');
@@ -70,23 +46,23 @@ let roleEngineer = {
           //creep.memory.targetName = target.structureType;
           creep.task = Tasks.build(target)
         }
-      } else {
-        creep.harvestSource();
-      }
-    }
+    //   } else {
+    //     creep.harvestSource();
+    //   }
+    // }
   },
   jobUpgrade: function (creep) {
-    if (creep.isIdle) {
-      if (creep.memory.full) {
+    // if (creep.isIdle) {
+    //   if (creep.memory.full) {
         creep.task = Tasks.upgrade(Game.rooms[creep.memory.home].controller);
-      } else {
-        creep.harvestSource();
-      }
-    }
+    //   } else {
+    //     creep.harvestSource();
+    //   }
+    // }
   },
   jobMaintenance: function (creep) {
-    if (creep.isIdle) {
-      if (creep.memory.full) {
+    // if (creep.isIdle) {
+    //   if (creep.memory.full) {
         let roadHP = 1000;
         let containerHP = 1000;
         let targets = creep.room.find(FIND_STRUCTURES, {
@@ -105,14 +81,14 @@ let roleEngineer = {
           let target = findLowestHits(targets);
           creep.task = Tasks.repair(target);
         }
-      } else {
-        creep.harvestSource();
-      }
-    }
+    //   } else {
+    //     creep.harvestSource();
+    //   }
+    // }
   },
   jobFortify: function (creep) {
-    if (creep.isIdle) {
-      if (creep.memory.full) {
+    // if (creep.isIdle) {
+    //   if (creep.memory.full) {
         let targets = creep.room.find(FIND_STRUCTURES, {
           filter: (s) => {
             return (
@@ -126,10 +102,10 @@ let roleEngineer = {
         });
         let target = creep.pos.findClosestByPath(targets.splice(3));
         creep.task = Tasks.fortify(target);
-      } else {
-        creep.harvestSource();
-      }
-    }
+    //   } else {
+    //     creep.harvestSource();
+    //   }
+    // }
   }
 };
 

@@ -4,12 +4,14 @@ module.exports = {
     creep.identifyJob();
     creep.fullState();
 
-    if (creep.hasJob()) {
+
+    if (!!creep.memory.job) {
       creep.executeJob();
     } else {
       //TODO job assignment logic
       creep.assignJob('jobHarvest');
     }
+    creep.run();
   },
   jobHarvest: function (creep) {
     if (creep.isIdle) {

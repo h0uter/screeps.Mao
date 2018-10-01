@@ -3,7 +3,7 @@ module.exports = {
   run: function (creep) {
     creep.identifyJob();
     //creep.memory.home = creep.room.name;
-    if (creep.hasJob()) {
+    if (!!creep.memory.job) {
       creep.executeJob();
     } else {
       if (!creep.memory.source) {
