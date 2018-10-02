@@ -3,11 +3,10 @@ StructureSpawn.prototype.cleanMemory = function () {
   for (let i in Memory.creeps) {
     if (!Game.creeps[i]) {
       delete Memory.creeps[i];
-      // console.log('Clearing non-existing creep memory:', name);
+      console.log('Clearing non-existing creep memory:', name);
     }
   }
 };
-
 
 StructureSpawn.prototype.spawnLogic = function () {
   if (_.filter(Game.creeps, (creep) => (creep.memory.home === this.room.name)).length <= 1) {
@@ -22,8 +21,8 @@ StructureSpawn.prototype.spawnLogic = function () {
     //lgO(pop);
 
     for (let i = 0; i < spawnList.length; i++) {
-      if (pop[spawnList[i]] < Config.populationSetting[spawnList[i]]) {
-        lg(spawnList[i]);
+      if (!pop[spawnList[i]] || pop[spawnList[i]] < Config.populationSetting[spawnList[i]]) {
+        lg('spawning: ' + spawnList[i]);
         return this.buildCreep(spawnList[i]);
       }
     }
@@ -92,7 +91,7 @@ StructureSpawn.prototype.buildCreep = function (role, spawnEnergy = this.room.en
     memory: {
       role: role,
       full: false,
-      target: false,
+      job: false,
       home: this.room.name
     }
   });
