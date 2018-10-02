@@ -36,8 +36,6 @@ let roleEngineer = {
       targets = prioritizeType(targets);
       let target = creep.findMostProgressed(targets);
       //console.log('target: ' + target + ' | targets: ' + targets);
-      //creep.memory.buildTarget = target.id;
-      //creep.memory.targetName = target.structureType;
       creep.task = Tasks.build(target)
     }
   },
