@@ -65,6 +65,7 @@ Room.prototype.monitor = function () {
   }
 };
 
+
 Room.prototype.roomCreeps = function() {
   //_.filter(Game.creeps, (creep) => (creep.memory.home === this.room.name))
   let list = {};
