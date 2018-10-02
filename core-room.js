@@ -50,6 +50,7 @@ Room.prototype.level = function() {
     return 0
   }
 };
+
 Room.prototype.monitor = function () {
   //INFO
   //TODO job targets: repair, jobConstruct
@@ -76,12 +77,13 @@ Room.prototype.roomCreeps = function() {
     }
   }
   return list
-}
+};
 
 
 Room.prototype.howManyOfEach = function(key) {
   //counts the occurance of the specified key in creep memory per room
   //getJobs en get Population zijn het zelfde
+  //TODO mooie lodash oplossing hiervoor vinden
   let list = {};
   for (let name in Game.creeps) {
     let creep = Game.creeps[name];
@@ -90,7 +92,7 @@ Room.prototype.howManyOfEach = function(key) {
     }
   }
   return list
-}
+};
 
 Room.prototype.getRCL = function() {
   return this.controller.level

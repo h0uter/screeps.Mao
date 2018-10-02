@@ -1,8 +1,8 @@
 StructureSpawn.prototype.cleanMemory = function () {
   //DELETE UNUSED MEMORY
-  for (let i in Memory.creeps) {
-    if (!Game.creeps[i]) {
-      delete Memory.creeps[i];
+  for (let name in Memory.creeps) {
+    if (!Game.creeps[name]) {
+      delete Memory.creeps[name];
       console.log('Clearing non-existing creep memory:', name);
     }
   }
