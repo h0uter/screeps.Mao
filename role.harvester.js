@@ -8,10 +8,10 @@ module.exports = {
       creep.executeJob();
     } else {
       //TODO job assignment logic
-      creep.assignJob('harvest');
+      creep.assignJob('jobHarvest');
     }
   },
-  harvest: function (creep) {
+  jobHarvest: function (creep) {
     if (creep.isIdle) {
       if (creep.memory.full) {
         let targets = creep.room.find(FIND_MY_STRUCTURES, {

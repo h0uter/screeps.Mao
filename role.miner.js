@@ -40,7 +40,7 @@ module.exports = {
     }
     if (container) {
       if (creep.pos.isEqualTo(container.pos)) {
-        creep.harvest(source);
+        creep.jobHarvest(source);
       } else {
         creep.moveTo(container);
       }

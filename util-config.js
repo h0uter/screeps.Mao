@@ -1,8 +1,8 @@
 module.exports = {
   populationSetting: {
     harvester: 3,
-    engineer: 5,
-    miner: 1,
+    engineer: 6,
+    miner: 0,
   },
   spawnList: {
     1: ['harvester', 'engineer'],
