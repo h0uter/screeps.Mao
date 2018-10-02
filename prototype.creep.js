@@ -33,17 +33,14 @@ Creep.prototype.fullState =
     }
   };
 
-Creep.prototype.executeJob = function () {
+Creep.prototype.executeJobLogic = function () {
   //lg('heyyeye'+Roles[this.memory.role][this.memory.job](this));
   Roles[this.memory.role][this.memory.job](this);
 };
 
 Creep.prototype.assignJob = function (job) {
   this.memory.job = job;
-};
-
-Creep.prototype.hasJob = function () {
-  return !!this.memory.job;
+  this.room.memory.jobList[job]++
 };
 
 Creep.prototype.harvestSource = function () {
@@ -72,30 +69,34 @@ Creep.prototype.findClosest =
 /** @function
  @param {string} structureType
  */
-Creep.prototype.structureTypeAvgHits =
-  function (structureType) {
+Creep.prototype.structureTypeAvgHits = function (structureType) {
+  let hitsTot = 0;
+  let structures = this.room.find(FIND_STRUCTURES, {
+    filter: (s) => (s.structureType === structureType)
+  });
+  // console.log('found ' + structures);
 
-    let hitsTot = 0;
-    let structures = this.room.find(FIND_STRUCTURES, {
-      filter: (s) => (s.structureType === structureType)
-    });
-    // console.log('found ' + structures);
-    for(let structure in structures) {
-      // console.log('la ' + structures[structure].hits);
-      hitsTot += structures[structure].hits
-    }
-    return hitsTot/structures.length
-  };
+  for (let structure in structures) {
+    // console.log('la ' + structures[structure].hits);
+    hitsTot += structures[structure].hits
+  }
+  // _.forIn(structures, function (value, key) {
+  //   hitsTot += structures[key].hits;
+  // });
+
+  return hitsTot/structures.length
+};
 
 /** @function
  @param {object} targets
  */
-Creep.prototype.findMostProgressed = function (targets) {
-  targets.sort(function (a, b) {
-    return a.progress - b.progress
-  });
-  if (targets.length > 3) {
-    targets = targets.splice(2)
-  }
-  return this.pos.findClosestByPath(targets)
-};
+Creep.prototype.findMostProgressed =
+  function (targets) {
+    targets.sort(function (a, b) {
+      return a.progress - b.progress
+    });
+    if (targets.length > 3) {
+      targets = targets.splice(2)
+    }
+    return this.pos.findClosestByPath(targets)
+  };

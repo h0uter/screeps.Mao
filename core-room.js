@@ -17,11 +17,18 @@ Room.prototype.director = function() {
   //CREEPS
   for (let name in Game.creeps) {
     let creep = Game.creeps[name];
-    // creep.memory.job = false;
+    //creep.memory.job = false;
     if (creep.room === this) {
       Roles[creep.memory.role].run(creep);
     }
   }
+  // _.forIn(Game.creeps, function (creep, name) {
+  //   lg(creep);
+  //   if (creep.room.name === this.name) {
+  //     Roles[creep.memory.role].run(creep);
+  //   }
+  // });
+
 
   //SPAWNING
   for (let spawnName in Game.spawns) {
