@@ -20,9 +20,20 @@ Room.prototype.monitor = function () {
   for (let tower of towers) {
     tower.defend();
   }
-
 };
 
+//TODO: use this
+Room.prototype.isMine = function() {
+  return this.controller && this.controller.my
+};
+
+Room.prototype.level = function() {
+  if (this.isMine()) {
+    return this.controller.level
+  } else {
+    return 0
+  }
+};
 
 roomPopulation = function (room) {
   let RCL = room.controller.level;
