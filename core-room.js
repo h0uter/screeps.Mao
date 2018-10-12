@@ -38,13 +38,8 @@ Room.prototype.director = function() {
   }
 };
 
-//TODO: use this
-Room.prototype.isMine = function() {
-  return this.controller && this.controller.my
-};
-
 Room.prototype.level = function() {
-  if (this.isMine()) {
+  if (this.controller && this.controller.my) {
     return this.controller.level
   } else {
     return 0
