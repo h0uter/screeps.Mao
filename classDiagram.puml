@@ -1,0 +1,30 @@
+@startuml
+
+abstract class room
+abstract AbstractCollection
+interface List
+interface Collection
+
+List <|-- room
+Collection <|-- AbstractCollection
+
+Collection <|- List
+AbstractCollection <|- room
+room <|-- Room
+
+class Room {
+object: roomInfo
+size()
+}
+
+class Creep {
+
+}
+
+enum TimeUnit {
+DAYS
+HOURS
+MINUTES
+}
+
+@enduml

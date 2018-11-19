@@ -1,0 +1,49 @@
+@startuml
+
+package "main.js" {
+
+[module.exports.loop] -- run
+require - [plugins]
+}
+
+package "gameLogic" {
+run --> [gameLogic]
+warVAR --> [gameMonitor]
+[gameMonitor] --> [gameInfo]
+[gameInfo] --> gameLogic
+
+}
+
+package "room Instance" {
+[roomInfo]  #Purple
+
+[gameLogic] --> instructions
+instructions --> [roomInfo]
+
+RCL --> [roomMonitor]
+availableEnergy --> [roomMonitor]
+constructionSites --> [roomMonitor]
+repairSites --> [roomMonitor]
+[roomMonitor] --> [roomInfo]
+
+roomInfo --> [spawning]
+[spawning] --> spawnQueue
+roomInfo --> [job selection]
+[job selection] --> jobQueue
+
+}
+
+
+package "creep" {
+
+package "Creep Instance" {
+[role] .. [job]
+[job] <-- jobQueue
+[job] --> [task]
+}
+}
+package "spawn" {
+[bodyConstructor]
+}
+
+@enduml
