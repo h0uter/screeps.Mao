@@ -22,7 +22,7 @@ module.exports = {
     }
 
   },
-  mine: function (creep) {
+  jobMnpmine: function (creep) {
     let source = Game.getObjectById(creep.memory.source);
     //console.log(source);
     let container;

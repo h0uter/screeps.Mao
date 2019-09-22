@@ -9,6 +9,7 @@ StructureSpawn.prototype.cleanMemory = function () {
 };
 
 
+
 StructureSpawn.prototype.spawnLogic = function () {
   if (_.filter(Game.creeps, (creep) => (creep.memory.home === this.room.name)).length <= 1) {
     lg('bijna uitgestorven');

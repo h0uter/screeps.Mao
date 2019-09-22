@@ -34,7 +34,7 @@ Creep.prototype.fullState =
   };
 
 Creep.prototype.executeJobLogic = function () {
-  //lg('heyyeye'+Roles[this.memory.role][this.memory.job](this));
+  lg('heyyeye'+Roles[this.memory.role][this.memory.job](this));
   Roles[this.memory.role][this.memory.job](this);
 };
 
