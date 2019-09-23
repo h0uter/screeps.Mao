@@ -15,3 +15,4 @@ module.exports = {
     8: ['harvester', 'engineer', 'miner'],
   },
 };
+//TODO: make this a more compact& smart datastructure 

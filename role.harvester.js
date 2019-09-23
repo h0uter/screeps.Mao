@@ -1,4 +1,4 @@
-let Tasks = require('plugin-creepTasks');
+let Tasks = require('creep-tasks');
 
 module.exports = {
   /** @param {Creep} creep **/

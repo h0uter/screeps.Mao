@@ -1,4 +1,4 @@
-let Tasks = require('plugin-creepTasks');
+let Tasks = require('creep-tasks');
 
 let roleEngineer = {
   //Role.Job.Task
@@ -6,7 +6,7 @@ let roleEngineer = {
   run: function (creep) {
     //creep.memory.job = 'upgrade';
     creep.fullState();
-
+    creep.pos.fi
     if (creep.isIdle) {
       if (creep.memory.full) {
         //JOB assignment from room info
@@ -15,8 +15,8 @@ let roleEngineer = {
           creep.memory.job = 'jobUpgrade';
         } else if (!jobList.jobMaintenance || jobList.jobMaintenance < 1) {
           creep.assignJob('jobMaintenance');
-        } else if (!jobList.jobFortify || jobList.jobFortify < 1) {
-          creep.assignJob('jobFortify');
+        // } else if (!jobList.jobFortify || jobList.jobFortify < 1) {
+          // creep.assignJob('jobFortify');
         }
 
         if (!!creep.memory.job) {
@@ -62,6 +62,7 @@ let roleEngineer = {
       creep.task = Tasks.repair(target);
     }
   },
+  // jobFortify is fucked
   jobFortify: function (creep) {
     let targets = creep.room.find(FIND_STRUCTURES, {
       filter: (s) => {

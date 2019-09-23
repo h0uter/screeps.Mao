@@ -1,6 +1,8 @@
+/// <reference path="C:\Users\houte\AppData\Local\Screeps\scripts\ScreepsAutocomplete-master\_references.js" />
+
 require('util-global');
 // //PLUGINS
-require('plugin-creepTasks');
+require('creep-tasks');
 
 
 // //LOAD IN PROTOTYPES
@@ -16,6 +18,7 @@ let logger = require('util-logger');
 
 //const profiler = require('util-profiler');
 //profiler.enable();
+
 
 module.exports.loop = function () {
   // profiler.wrap(function() {
